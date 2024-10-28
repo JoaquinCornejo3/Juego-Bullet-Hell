@@ -74,13 +74,14 @@ public class PJprincipal {
 			      camera.unproject(touchPos);
 			      bucket.x = touchPos.x - 64 / 2;
 			}*/
+                   
 		   //movimiento desde teclado
-		   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
-		   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += velx * Gdx.graphics.getDeltaTime();
-                   if(Gdx.input.isKeyPressed(Input.Keys.A)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
-		   if(Gdx.input.isKeyPressed(Input.Keys.D)) bucket.x += velx * Gdx.graphics.getDeltaTime();
-                   if(Gdx.input.isKeyPressed(Input.Keys.W)) bucket.y += velx * Gdx.graphics.getDeltaTime();
-                   if(Gdx.input.isKeyPressed(Input.Keys.S)) bucket.y -= velx * Gdx.graphics.getDeltaTime();
+		   if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
+		   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) bucket.x += velx * Gdx.graphics.getDeltaTime();
+                   
+		   
+                   if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ) bucket.y += velx * Gdx.graphics.getDeltaTime();
+                   if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) bucket.y -= velx * Gdx.graphics.getDeltaTime();
                    
 		   // que no se salga de los bordes izq y der
 		   if(bucket.x < 0) bucket.x = 0;
