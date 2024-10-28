@@ -83,9 +83,11 @@ public class PJprincipal {
                    if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ) bucket.y += velx * Gdx.graphics.getDeltaTime();
                    if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) bucket.y -= velx * Gdx.graphics.getDeltaTime();
                    
-		   // que no se salga de los bordes izq y der
+		   // que no se salga de los limites de la pantalla
 		   if(bucket.x < 0) bucket.x = 0;
 		   if(bucket.x > 800 - 64) bucket.x = 800 - 64;
+                   if(bucket.y < 0) bucket.y = 0;
+                   if(bucket.y > 480 - 64) bucket.y = 480 - 64;
 	   }
 	    
 
