@@ -6,12 +6,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 public abstract class PJprincipal extends EntidadMovible implements Mostrable {
 
+    private Animation animation;
+    private float tiempo;
+    private TextureRegion [] regionMovimiento;
     private Sound sonidoHerido;
     private int vidas = 3;
     private int puntos = 0;

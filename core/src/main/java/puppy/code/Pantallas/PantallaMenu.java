@@ -3,6 +3,7 @@ package puppy.code.Pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,11 +15,13 @@ public class PantallaMenu implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private BitmapFont font;
+    Music fondoMusicaMenu = Gdx.audio.newMusic(Gdx.files.internal("musicaMenu.wav"));
 
     // Opciones del menú
     private String[] menuOptions = {"Iniciar Juego", "Opciones", "Salir"};
     private int selectedIndex = 0; // Opción seleccionada
-
+    
+    
     public PantallaMenu(GameBase game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -28,16 +31,18 @@ public class PantallaMenu implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        fondoMusicaMenu.setLooping(true); // Sonará en bucle
+        fondoMusicaMenu.play(); // Empieza a sonar la música de fondo
+    }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-
+        
         batch.begin();
-
         // Dibujar las opciones del menú
         for (int i = 0; i < menuOptions.length; i++) {
             if (i == selectedIndex) {
@@ -85,7 +90,9 @@ public class PantallaMenu implements Screen {
     public void resume() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+    fondoMusicaMenu.stop();
+    }
 
     @Override
     public void dispose() {
