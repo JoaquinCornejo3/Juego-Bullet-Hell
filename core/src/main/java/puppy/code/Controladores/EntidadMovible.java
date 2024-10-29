@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package puppy.code.Controladores;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,6 +22,7 @@ public abstract class EntidadMovible {
     }
 
     public abstract boolean checkCollision(EntidadMovible other);
+    public abstract void crear();
 
     public Rectangle getArea() {
         return spr.getBoundingRectangle();
