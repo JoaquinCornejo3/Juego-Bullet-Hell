@@ -4,49 +4,123 @@
  */
 package puppy.code.Pantallas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import puppy.code.*;
 
 /**
  *
- * @author joaqu
+ * @author Vixho
  */
-public class PantallaJuego implements Screen{
-    public void mostrarJuego(){
+public class PantallaJuego implements Screen {
+    final GameBase game;
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private PJprincipal pj;
+    private ProyectilesENEMIGOS proyectilesE;
+    
+    public PantallaJuego(final GameBase game){
+        this.game = game;
+        this.batch = game.getBatch();
+        this.font = game.getFont();
         
+        // load the images for the droplet and the bucket, 64x64 pixels each 	     
+        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+        pj = new PJprincipal(new Texture(Gdx.files.internal("bucket.png")), hurtSound);
+
+        // load the drop sound effect and the rain background "music" 
+        Texture gota = new Texture(Gdx.files.internal("drop.png"));
+        Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
+
+        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        
+        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica);
+
+        // camera
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 800, 480);
+        batch = new SpriteBatch();
+        // creacion del personaje principal
+        pj.crear();
+
+        // creacion de los proyectiles
+        proyectilesE.crear();
     }
+    
 
     @Override
     public void show() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        proyectilesE.continuar();
     }
 
     @Override
     public void render(float delta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        //limpia la pantalla con color azul obscuro.
+        ScreenUtils.clear(0, 0, 0.2f, 1);
+        //actualizar matrices de la cámara
+        camera.update();
+        //actualizar 
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        //dibujar textos
+        font.draw(batch, "Gotas totales: " + pj.getPuntos(), 5, 475);
+        font.draw(batch, "Vidas : " + pj.getVidas(), 670, 475);
+        font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 - 50, 475);
 
+        if (!pj.estaHerido()) {
+            // movimiento del tarro desde teclado
+            pj.actualizarMovimiento();
+            // caida de la lluvia 
+            if (!proyectilesE.actualizarMovimiento(pj)) {
+                //actualizar HigherScore
+                if (game.getHigherScore() < pj.getPuntos()) {
+                    game.setHigherScore(pj.getPuntos());
+                }
+                //ir a la ventana de finde juego y destruir la actual
+                
+                game.setScreen(new PantallaGameOver(game));
+                proyectilesE.pausar();
+                dispose();
+            }
+        }
+
+        pj.dibujar(batch);
+        proyectilesE.actualizarDibujoLluvia(batch);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            pause();
+        }
+
+        batch.end();
+    }
+    
     @Override
     public void resize(int width, int height) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void pause() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void resume() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void hide() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void dispose() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
 }

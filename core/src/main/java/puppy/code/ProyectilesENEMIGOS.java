@@ -55,7 +55,7 @@ public class ProyectilesENEMIGOS implements Mostrable{
         lastDropTime = TimeUtils.nanoTime();
     }
 
-    public void actualizarMovimiento(PJprincipal PJpri) {
+    public boolean actualizarMovimiento(PJprincipal PJpri) {
         // generar gotas de lluvia 
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
@@ -76,8 +76,9 @@ public class ProyectilesENEMIGOS implements Mostrable{
                 if (rainDropsType.get(i) == 1) { // gota dañina
                     PJpri.dañar();
                     
-                    if(PJpri.getVidas() == 0){
+                    if(PJpri.getVidas() <= 0){
                         PJpri.morir();
+                        return false;
                     }
                         
                     rainDropsPos.removeIndex(i);
@@ -88,8 +89,9 @@ public class ProyectilesENEMIGOS implements Mostrable{
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 }
-            }
+            }           
         }
+        return true;
     }
 
     public void actualizarDibujoLluvia(SpriteBatch batch) {
@@ -112,7 +114,6 @@ public class ProyectilesENEMIGOS implements Mostrable{
 
     @Override
     public void dibujar(SpriteBatch batch) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -122,7 +123,15 @@ public class ProyectilesENEMIGOS implements Mostrable{
 
     @Override
     public void actualizarMovimiento() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public void pausar() {
+        rainMusic.stop();
+    }
+
+    public void continuar() {
+        rainMusic.play();
+    }
+
 
 }
