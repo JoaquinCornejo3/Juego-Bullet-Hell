@@ -9,8 +9,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import puppy.code.PJprincipal;
 
-public class ProyectilesENEMIGOS {
+public class ProyectilesENEMIGOS implements Mostrable{
 
     private Array<Rectangle> rainDropsPos;
     private Array<Integer> rainDropsType;
@@ -60,6 +61,7 @@ public class ProyectilesENEMIGOS {
             crearGotaDeLluvia();
         }
 
+        
         // revisar si las gotas cayeron al suelo o chocaron con el tarro
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
@@ -106,6 +108,21 @@ public class ProyectilesENEMIGOS {
     public void destruir() {
         dropSound.dispose();
         rainMusic.dispose();
+    }
+
+    @Override
+    public void dibujar(SpriteBatch batch) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Rectangle getArea() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizarMovimiento() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -12,12 +12,12 @@ import puppy.code.Pantallas.PantallaMenu;
  *
  * @author joaqu
  */
-public class controladorJuego {
+public class ControladorJuego {
     private PantallaMenu menu;
     private PantallaJuego pantallaJuego;
     private PantallaGameOver gameOver;
 
-    public controladorJuego() {
+    public ControladorJuego() {
         menu = new PantallaMenu();
         pantallaJuego = new PantallaJuego();
         gameOver = new PantallaGameOver();

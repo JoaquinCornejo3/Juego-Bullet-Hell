@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
-public class PJprincipal {
+public class PJprincipal implements Mostrable{
 
     private Rectangle bucket;
     private Texture bucketImage;
@@ -80,15 +80,6 @@ public class PJprincipal {
     }
 
     public void actualizarMovimiento() {
-        // movimiento desde mouse/touch
-        /*if(Gdx.input.isTouched()) {
-			      Vector3 touchPos = new Vector3();
-			      touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			      camera.unproject(touchPos);
-			      bucket.x = touchPos.x - 64 / 2;
-			}*/
-
-        //movimiento desde teclado
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             bucket.x -= velx * Gdx.graphics.getDeltaTime();
         }
