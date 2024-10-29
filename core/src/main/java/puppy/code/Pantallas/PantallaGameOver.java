@@ -24,7 +24,7 @@ public class PantallaGameOver implements Screen {
     private BitmapFont font;
     private OrthographicCamera camera;
     private Music musicaGameOver;
-
+    
     public PantallaGameOver(final GameBase game) {
         this.game = game;
         this.batch = game.getBatch();
@@ -33,8 +33,9 @@ public class PantallaGameOver implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         
-        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("gameover.mp3"));
+        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("MusicaGameOver.mp3"));
         musicaGameOver.setLooping(true);
+        musicaGameOver.play();
         
     }
 
@@ -51,7 +52,7 @@ public class PantallaGameOver implements Screen {
 
         batch.begin();
         font.draw(batch, "GAME OVER", 100, 200);
-        font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 100);
+        font.draw(batch, "Toca en cualquier lado con tu mouse para reiniciar.", 100, 100);
         batch.end();
         
         
@@ -76,6 +77,7 @@ public class PantallaGameOver implements Screen {
 
     @Override
     public void hide() {
+        musicaGameOver.stop();
     }
 
     @Override
