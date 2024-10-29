@@ -10,6 +10,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import puppy.code.GameBase;
 
@@ -25,8 +27,10 @@ public class PantallaPausa implements Screen{
     private BitmapFont font;
     
     //Opciones de pausa
-    private String[] opciones = {"Continuar","Reiniciar","Salir"};
+    private String[] pausaOpciones = {"Continuar","Reiniciar","Salir"};
     private int selectedIndex = 0;
+    private int hoveredIndex;
+    private Rectangle[] PausaBounds;
     
     public PantallaPausa(GameBase game, PantallaJuego juego) {
         this.game = game;
@@ -34,40 +38,51 @@ public class PantallaPausa implements Screen{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
+        // Inicializar los límites de cada opción de menú
+        PausaBounds = new Rectangle[pausaOpciones.length];
+        for (int i = 0; i < pausaOpciones.length; i++) {
+            PausaBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); // Ajusta ancho y alto según el texto
+        }
     }
-    
     
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0,0,0.2f,1);
+        ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        
-        for(int i = 0; i < opciones.length;i++){
-            if(i == selectedIndex){
-                font.draw(batch, "> " + opciones[i], 350, 300 - i * 40);
-            } 
-            
-            else{
-                font.draw(batch, opciones[i], 350, 300 - i * 40);
+
+        // Detectar la posición del mouse
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos); // Convertir a coordenadas de la cámara
+
+        // Revisar si el mouse está sobre alguna opción y actualizar `hoveredIndex`
+        hoveredIndex = -1;
+        for (int i = 0; i < PausaBounds.length; i++) {
+            if (PausaBounds[i].contains(mousePos.x, mousePos.y)) {
+                hoveredIndex = i;
+                break;
             }
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            selectedIndex = (selectedIndex - 1 + opciones.length) % opciones.length;
+
+        // Dibujar las opciones del menú, resaltando la opción donde está el mouse
+        batch.begin();
+        for (int i = 0; i < pausaOpciones.length; i++) {
+            if (i == hoveredIndex) {
+                font.draw(batch, "> " + pausaOpciones[i], 350, 300 - i * 40); // Resalta con una flecha
+            } else {
+                font.draw(batch, pausaOpciones[i], 350, 300 - i * 40);
+            }
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            selectedIndex = (selectedIndex + 1) % opciones.length;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            selectOption();
-        }
-        
         batch.end();
+
+        // Detección de clic del mouse
+        if (Gdx.input.isTouched() && hoveredIndex != -1) {
+            selectOption(hoveredIndex); // Ejecutar la opción seleccionada
+        }
     }
     
-    private void selectOption(){
+    private void selectOption(int hoveredIndex){
         switch(selectedIndex){
             case 0:
                 game.setScreen(juego);
