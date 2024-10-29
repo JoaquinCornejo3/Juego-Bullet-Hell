@@ -62,7 +62,7 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void show() {
-        proyectilesE.continuar();
+        proyectilesE.continuarMusica();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PantallaJuego implements Screen {
                 //ir a la ventana de finde juego y destruir la actual
                 
                 game.setScreen(new PantallaGameOver(game));
-                proyectilesE.pausar();
+                proyectilesE.pausarMusica();
                 dispose();
             }
         }
@@ -111,6 +111,8 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void pause() {
+        proyectilesE.pausarMusica();
+        game.setScreen(new PantallaPausa(game, this));
     }
 
     @Override
@@ -119,6 +121,7 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void hide() {
+        proyectilesE.pausarMusica();
     }
 
     @Override
