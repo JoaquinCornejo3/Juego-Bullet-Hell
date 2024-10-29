@@ -2,7 +2,6 @@ package puppy.code;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,9 +31,10 @@ public class GameBase extends ApplicationAdapter {
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
 
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-
-        Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, rainMusic);
+        
+        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("boss_battle_10_retro.wav"));
+        //Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica);
 
         // camera
         camera = new OrthographicCamera();
