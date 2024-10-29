@@ -29,6 +29,7 @@ public class PantallaGameOver implements Screen {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
+        font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
         
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -49,10 +50,22 @@ public class PantallaGameOver implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         
-
         batch.begin();
-        font.draw(batch, "GAME OVER", 100, 200);
-        font.draw(batch, "Toca en cualquier lado con tu mouse para reiniciar.", 100, 100);
+        
+        // Centramos el texto "GAME OVER"
+        String gameOverText = "GAME OVER";
+        float gameOverWidth = font.getRegion().getRegionWidth();
+        float gameOverX = (1100 - gameOverWidth) / 2;
+        font.draw(batch, gameOverText, gameOverX, 300);
+
+        // Centramos el mensaje de reinicio
+        String retryMessage = "Toca en cualquier lado con tu mouse para reiniciar.";
+        float retryMessageWidth = font.getRegion().getRegionWidth();
+        float retryMessageX = (600 - retryMessageWidth) / 2;
+        font.draw(batch, retryMessage, retryMessageX, 160);
+        
+        //font.draw(batch, "GAME OVER", 100, 200);
+        //font.draw(batch, "Toca en cualquier lado con tu mouse para reiniciar.", 100, 100);
         batch.end();
         
         

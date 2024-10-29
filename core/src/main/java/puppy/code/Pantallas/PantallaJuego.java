@@ -32,6 +32,7 @@ public class PantallaJuego implements Screen {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
+        font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
         
         // load the images for the droplet and the bucket, 64x64 pixels each 	     
         Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
