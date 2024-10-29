@@ -32,8 +32,7 @@ public class GameBase extends ApplicationAdapter {
 
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         
-        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("boss_battle_10_retro.wav"));
-        //Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
         proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica);
 
         // camera
