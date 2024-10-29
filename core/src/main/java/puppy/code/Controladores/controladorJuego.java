@@ -10,8 +10,7 @@ package puppy.code.Controladores;
  * @author joaqu
  */
 public class ControladorJuego {
-
-
+    
     public ControladorJuego() {
         
     }

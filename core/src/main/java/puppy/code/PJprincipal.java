@@ -1,5 +1,6 @@
 package puppy.code;
 
+import puppy.code.Controladores.Mostrable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
