@@ -126,11 +126,11 @@ public class ProyectilesENEMIGOS implements Mostrable{
     public void actualizarMovimiento() {
     }
     
-    public void pausar() {
+    public void pausarMusica() {
         rainMusic.stop();
     }
 
-    public void continuar() {
+    public void continuarMusica() {
         rainMusic.play();
     }
 

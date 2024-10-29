@@ -11,7 +11,7 @@ public class GameBase extends Game {
     private BitmapFont font;
     private int higherScore;
 
-    @Override
+    
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();

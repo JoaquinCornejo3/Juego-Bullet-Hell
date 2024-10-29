@@ -71,7 +71,7 @@ public class PantallaGameOver implements Screen {
         
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new PantallaMenu(game));
+            game.setScreen(new PantallaJuego(game));
             dispose();
         }
     }

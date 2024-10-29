@@ -27,6 +27,7 @@ public class PantallaJuego implements Screen {
     private BitmapFont font;
     private PJprincipal pj;
     private ProyectilesENEMIGOS proyectilesE;
+    private float tiempo = 0;
     
     public PantallaJuego(final GameBase game){
         this.game = game;
@@ -63,11 +64,16 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void show() {
-        proyectilesE.continuar();
+        proyectilesE.continuarMusica();
     }
 
     @Override
     public void render(float delta) {
+        tiempo += delta;
+        
+        int minutos = (int) tiempo / 60;
+        int segundos = (int) tiempo % 60;
+        
         //limpia la pantalla con color azul obscuro.
         ScreenUtils.clear(0, 0, 0.2f, 1);
         //actualizar matrices de la cámara
@@ -77,9 +83,11 @@ public class PantallaJuego implements Screen {
         batch.begin();
         //dibujar textos
         font.draw(batch, "Gotas totales: " + pj.getPuntos(), 5, 475);
-        font.draw(batch, "Vidas : " + pj.getVidas(), 670, 475);
-        font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 - 50, 475);
-
+        font.draw(batch, "Vidas : " + pj.getVidas(), camera.viewportWidth * 3 /4, 475);
+        font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 , 475);
+        //font.draw(batch, "Tiempo: " + (int) tiempo + "s", camera.viewportWidth /3, 475); // Dibuja en la esquina superior izquierda
+        font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth /3, 470);
+        
         if (!pj.estaHerido()) {
             // movimiento del tarro desde teclado
             pj.actualizarMovimiento();
@@ -92,7 +100,7 @@ public class PantallaJuego implements Screen {
                 //ir a la ventana de finde juego y destruir la actual
                 
                 game.setScreen(new PantallaGameOver(game));
-                proyectilesE.pausar();
+                proyectilesE.pausarMusica();
                 dispose();
             }
         }
@@ -112,6 +120,8 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void pause() {
+        proyectilesE.pausarMusica();
+        game.setScreen(new PantallaPausa(game, this));
     }
 
     @Override
@@ -120,6 +130,7 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void hide() {
+        proyectilesE.pausarMusica();
     }
 
     @Override
