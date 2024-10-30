@@ -38,8 +38,8 @@ public class PantallaJuego implements Screen {
         // load the images for the droplet and the bucket, 64x64 pixels each 	     
         Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
         
-        pj = new PJprincipal(new Texture(Gdx.files.internal("bucket.png")),
-                             hurtSound, 400, 400) {};
+        pj = new PJprincipal(new Texture(Gdx.files.internal("nerd 64.png")),
+                             hurtSound, 500, 500) {}; //400, 400
 
         // load the drop sound effect and the rain background "music" 
         Texture gota = new Texture(Gdx.files.internal("drop.png"));

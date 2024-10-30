@@ -30,7 +30,7 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
     @Override
     public void crear() {
         spr.setPosition(800 / 2 - spr.getWidth() / 2, 20);
-        spr.setSize(64, 64); // Ajusta el tamaño si es necesario
+        spr.setSize(32, 32); //64, 64 Ajusta el tamaño si es necesario
     }
 
     public int getVidas() {
