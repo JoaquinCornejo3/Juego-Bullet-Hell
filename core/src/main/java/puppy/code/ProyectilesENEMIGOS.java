@@ -41,24 +41,24 @@ public class ProyectilesENEMIGOS implements Mostrable{
 
     private void crearGotaDeLluvia() {
         Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800 - 64);
+        raindrop.x = MathUtils.random(0, 800 - 64); //0, 800 - 64
         raindrop.y = 480;
-        raindrop.width = 64;
-        raindrop.height = 64;
+        raindrop.width = 64; //64
+        raindrop.height = 64; //64
         rainDropsPos.add(raindrop);
         
         // ver el tipo de gota
-        if (MathUtils.random(1, 10) < 3) {
-            rainDropsType.add(1);
-        } else {
+        if (MathUtils.random(1, 10) <= 3) {
             rainDropsType.add(2);
+        } else {
+            rainDropsType.add(1);
         }
         lastDropTime = TimeUtils.nanoTime();
     }
 
     public boolean actualizarMovimiento(PJprincipal PJpri) {
         // generar gotas de lluvia 
-        if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
+        if (TimeUtils.nanoTime() - lastDropTime > 100000000) { //100000000
             crearGotaDeLluvia();
         }
 

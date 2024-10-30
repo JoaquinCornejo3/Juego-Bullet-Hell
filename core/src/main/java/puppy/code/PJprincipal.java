@@ -14,9 +14,6 @@ import com.badlogic.gdx.math.MathUtils;
 
 public abstract class PJprincipal extends EntidadMovible implements Mostrable {
 
-    private Animation animation;
-    private float tiempo;
-    private TextureRegion [] regionMovimiento;
     private Sound sonidoHerido;
     private int vidas = 3;
     private int puntos = 0;

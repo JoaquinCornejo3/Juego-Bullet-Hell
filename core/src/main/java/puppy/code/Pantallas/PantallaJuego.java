@@ -82,11 +82,11 @@ public class PantallaJuego implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //dibujar textos
-        font.draw(batch, "Gotas totales: " + pj.getPuntos(), 5, 475);
+        font.draw(batch, "Gotas totales: " + pj.getPuntos(), 2, 475);//5, 475
         font.draw(batch, "Vidas : " + pj.getVidas(), camera.viewportWidth * 3 /4, 475);
-        font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 , 475);
+        //font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 , 475);
         //font.draw(batch, "Tiempo: " + (int) tiempo + "s", camera.viewportWidth /3, 475); // Dibuja en la esquina superior izquierda
-        font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth /3, 470);
+        font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth /3, 475);///3, 470
         
         if (!pj.estaHerido()) {
             // movimiento del tarro desde teclado

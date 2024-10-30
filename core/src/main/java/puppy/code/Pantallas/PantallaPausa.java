@@ -7,6 +7,7 @@ package puppy.code.Pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,6 +26,8 @@ public class PantallaPausa implements Screen{
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private BitmapFont font;
+    private Music musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
+
     
     //Opciones de pausa
     private String[] pausaOpciones = {"Continuar","Reiniciar","Salir"};
@@ -39,6 +42,7 @@ public class PantallaPausa implements Screen{
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
+
         // Inicializar los límites de cada opción de menú
         PausaBounds = new Rectangle[pausaOpciones.length];
         for (int i = 0; i < pausaOpciones.length; i++) {
@@ -99,6 +103,8 @@ public class PantallaPausa implements Screen{
 
     @Override
     public void show() {
+        musicaPausa.setLooping(true);
+        musicaPausa.play();
     }
 
   
@@ -116,6 +122,7 @@ public class PantallaPausa implements Screen{
 
     @Override
     public void hide() {
+        musicaPausa.stop();
     }
 
     @Override
