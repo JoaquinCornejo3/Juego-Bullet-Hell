@@ -61,6 +61,7 @@ public class PantallaPausa implements Screen{
         for (int i = 0; i < PausaBounds.length; i++) {
             if (PausaBounds[i].contains(mousePos.x, mousePos.y)) {
                 hoveredIndex = i;
+                selectedIndex = i;
                 break;
             }
         }
