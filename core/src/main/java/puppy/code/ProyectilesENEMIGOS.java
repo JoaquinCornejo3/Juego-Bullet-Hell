@@ -43,8 +43,8 @@ public class ProyectilesENEMIGOS implements Mostrable{
         Rectangle raindrop = new Rectangle();
         raindrop.x = MathUtils.random(0, 800 - 64); //0, 800 - 64
         raindrop.y = 480;
-        raindrop.width = 64; //64
-        raindrop.height = 64; //64
+        raindrop.width = 48; //64
+        raindrop.height = 48; //64
         rainDropsPos.add(raindrop);
         
         // ver el tipo de gota
