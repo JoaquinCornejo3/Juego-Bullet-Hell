@@ -33,12 +33,10 @@ public class ProyectilesENEMIGOS implements Mostrable{
         rainDropsPos = new Array<>();
         rainDropsType = new Array<>();
         crearGotaDeLluvia();
-        
-        // start the playback of the background music immediately
+             
         rainMusic.setLooping(true);
         rainMusic.play();
     }
-
     private void crearGotaDeLluvia() {
         Rectangle raindrop = new Rectangle();
         raindrop.x = MathUtils.random(0, 800 - 64); //0, 800 - 64
@@ -55,36 +53,29 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         lastDropTime = TimeUtils.nanoTime();
     }
-
     public boolean actualizarMovimiento(PJprincipal PJpri) {
-        // generar gotas de lluvia 
-        if (TimeUtils.nanoTime() - lastDropTime > 100000000) { //100000000
+        if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
         }
-
-        
-        // revisar si las gotas cayeron al suelo o chocaron con el tarro
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             raindrop.y -= 300 * Gdx.graphics.getDeltaTime();
-            
-            //cae al suelo y se elimina
+                      
             if (raindrop.y + 64 < 0) {
                 rainDropsPos.removeIndex(i);
                 rainDropsType.removeIndex(i);
             }
-            if (raindrop.overlaps(PJpri.getArea())) { //la gota choca con el tarro
-                if (rainDropsType.get(i) == 1) { // gota dañina
+            if (raindrop.overlaps(PJpri.getArea())) { 
+                if (rainDropsType.get(i) == 1) { 
                     PJpri.dañar();
                     
                     if(PJpri.getVidas() <= 0){
                         PJpri.morir();
                         return false;
-                    }
-                        
+                    }                      
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
-                } else { // gota a recolectar
+                } else { 
                     PJpri.sumarPuntos(10);
                     dropSound.play();
                     rainDropsPos.removeIndex(i);
@@ -94,12 +85,11 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         return true;
     }
-
     public void actualizarDibujoLluvia(SpriteBatch batch) {
 
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
-            if (rainDropsType.get(i) == 1) // gota dañina
+            if (rainDropsType.get(i) == 1) 
             {
                 batch.draw(gotaMala, raindrop.x, raindrop.y);
             } else {
@@ -107,12 +97,10 @@ public class ProyectilesENEMIGOS implements Mostrable{
             }
         }
     }
-
     public void destruir() {
         dropSound.dispose();
         rainMusic.dispose();
     }
-
     @Override
     public void dibujar(SpriteBatch batch) {
     }

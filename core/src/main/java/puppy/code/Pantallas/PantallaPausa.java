@@ -28,8 +28,6 @@ public class PantallaPausa implements Screen{
     private BitmapFont font;
     private Music musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
 
-    
-    //Opciones de pausa
     private String[] pausaOpciones = {"Continuar","Reiniciar","Salir"};
     private int selectedIndex = 0;
     private int hoveredIndex;
@@ -43,10 +41,9 @@ public class PantallaPausa implements Screen{
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
-        // Inicializar los límites de cada opción de menú
         PausaBounds = new Rectangle[pausaOpciones.length];
         for (int i = 0; i < pausaOpciones.length; i++) {
-            PausaBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); // Ajusta ancho y alto según el texto
+            PausaBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); 
         }
     }
     
@@ -56,11 +53,9 @@ public class PantallaPausa implements Screen{
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        // Detectar la posición del mouse
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos); // Convertir a coordenadas de la cámara
 
-        // Revisar si el mouse está sobre alguna opción y actualizar `hoveredIndex`
         hoveredIndex = -1;
         for (int i = 0; i < PausaBounds.length; i++) {
             if (PausaBounds[i].contains(mousePos.x, mousePos.y)) {
@@ -70,20 +65,18 @@ public class PantallaPausa implements Screen{
             }
         }
 
-        // Dibujar las opciones del menú, resaltando la opción donde está el mouse
         batch.begin();
         for (int i = 0; i < pausaOpciones.length; i++) {
             if (i == hoveredIndex) {
-                font.draw(batch, "> " + pausaOpciones[i], 350, 300 - i * 40); // Resalta con una flecha
+                font.draw(batch, "> " + pausaOpciones[i], 350, 300 - i * 40); 
             } else {
                 font.draw(batch, pausaOpciones[i], 350, 300 - i * 40);
             }
         }
         batch.end();
 
-        // Detección de clic del mouse
         if (Gdx.input.isTouched() && hoveredIndex != -1) {
-            selectOption(hoveredIndex); // Ejecutar la opción seleccionada
+            selectOption(hoveredIndex); 
         }
     }
     
@@ -107,7 +100,6 @@ public class PantallaPausa implements Screen{
         musicaPausa.play();
     }
 
-  
     @Override
     public void resize(int width, int height) {
     }

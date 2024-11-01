@@ -19,7 +19,7 @@ public class PantallaMenu implements Screen {
     private Music fondoMusicaMenu = Gdx.audio.newMusic(Gdx.files.internal("musicaMenu.wav"));
 
     private String[] menuOptions = {"Iniciar Juego", "Opciones", "Salir"};
-    private int hoveredIndex = -1; // Índice para resaltar la opción en la que está el mouse
+    private int hoveredIndex = -1; 
     private Rectangle[] menuBounds;
 
     public PantallaMenu(GameBase game) {
@@ -29,10 +29,9 @@ public class PantallaMenu implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
-        // Inicializar los límites de cada opción de menú
         menuBounds = new Rectangle[menuOptions.length];
         for (int i = 0; i < menuOptions.length; i++) {
-            menuBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); // Ajusta ancho y alto según el texto
+            menuBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); 
         }
     }
 
@@ -48,11 +47,9 @@ public class PantallaMenu implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        // Detectar la posición del mouse
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(mousePos); // Convertir a coordenadas de la cámara
+        camera.unproject(mousePos); 
 
-        // Revisar si el mouse está sobre alguna opción y actualizar `hoveredIndex`
         hoveredIndex = -1;
         for (int i = 0; i < menuBounds.length; i++) {
             if (menuBounds[i].contains(mousePos.x, mousePos.y)) {
@@ -60,38 +57,33 @@ public class PantallaMenu implements Screen {
                 break;
             }
         }
-
-        // Dibujar las opciones del menú, resaltando la opción donde está el mouse
         batch.begin();
         for (int i = 0; i < menuOptions.length; i++) {
             if (i == hoveredIndex) {
-                font.draw(batch, "> " + menuOptions[i], 350, 300 - i * 40); // Resalta con una flecha
+                font.draw(batch, "> " + menuOptions[i], 350, 300 - i * 40); 
             } else {
                 font.draw(batch, menuOptions[i], 350, 300 - i * 40);
             }
         }
         batch.end();
 
-        // Detección de clic del mouse
         if (Gdx.input.isTouched() && hoveredIndex != -1) {
-            selectOption(hoveredIndex); // Ejecutar la opción seleccionada
+            selectOption(hoveredIndex); 
         }
     }
-
     private void selectOption(int optionIndex) {
         switch (optionIndex) {
-            case 0: // Iniciar Juego
+            case 0: 
                 game.setScreen(new PantallaJuego(game));
                 break;
-            case 1: // Opciones
-                // game.setScreen(new OptionsScreen(game));
+            case 1:
+              
                 break;
-            case 2: // Salir
+            case 2: 
                 Gdx.app.exit();
                 break;
         }
     }
-
     @Override
     public void resize(int width, int height) {}
 

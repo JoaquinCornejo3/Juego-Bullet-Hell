@@ -52,20 +52,16 @@ public class PantallaGameOver implements Screen {
         
         batch.begin();
         
-        // Centramos el texto "GAME OVER"
         String gameOverText = "GAME OVER";
         float gameOverWidth = font.getRegion().getRegionWidth();
         float gameOverX = (1100 - gameOverWidth) / 2;
         font.draw(batch, gameOverText, gameOverX, 300);
 
-        // Centramos el mensaje de reinicio
         String retryMessage = "Toca en cualquier lado con tu mouse para reiniciar.";
         float retryMessageWidth = font.getRegion().getRegionWidth();
         float retryMessageX = (600 - retryMessageWidth) / 2;
         font.draw(batch, retryMessage, retryMessageX, 160);
         
-        //font.draw(batch, "GAME OVER", 100, 200);
-        //font.draw(batch, "Toca en cualquier lado con tu mouse para reiniciar.", 100, 100);
         batch.end();
         
         
