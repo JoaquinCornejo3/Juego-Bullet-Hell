@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="GameBase" package="puppy.code" visibility="public" xPosition="396.0" yPosition="138.0">
+      <Fields>
+        <Field name="batch" type="SpriteBatch" visibility="private"/>
+        <Field name="font" type="BitmapFont" visibility="private"/>
+        <Field name="higherScore" type="int" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="create" returnType="void" visibility="public"/>
+        <Method name="render" returnType="void" visibility="public"/>
+        <Method name="dispose" returnType="void" visibility="public"/>
+        <Method name="getBatch" returnType="SpriteBatch" visibility="public"/>
+        <Method name="getFont" returnType="BitmapFont" visibility="public"/>
+        <Method name="getHigherScore" returnType="int" visibility="public"/>
+        <Method name="setHigherScore" returnType="void" visibility="public">
+          <Argument type="int" name="highScore"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PJprincipal" package="puppy.code" visibility="public" isAbstract="true" xPosition="1373.0" yPosition="72.0">
+      <Fields>
+        <Field name="sonidoHerido" type="Sound" visibility="private"/>
+        <Field name="vidas" type="int" visibility="private"/>
+        <Field name="puntos" type="int" visibility="private"/>
+        <Field name="herido" type="boolean" visibility="private"/>
+        <Field name="tiempoHeridoMax" type="int" visibility="private"/>
+        <Field name="tiempoHerido" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Texture" name="tex"/>
+          <Argument type="Sound" name="ss"/>
+          <Argument type="int" name="xSpeed"/>
+          <Argument type="int" name="ySpeed"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="crear" returnType="void" visibility="public"/>
+        <Method name="getVidas" returnType="int" visibility="public"/>
+        <Method name="getPuntos" returnType="int" visibility="public"/>
+        <Method name="sumarPuntos" returnType="void" visibility="public">
+          <Argument type="int" name="pp"/>
+        </Method>
+        <Method name="dañar" returnType="void" visibility="public"/>
+        <Method name="morir" returnType="void" visibility="public"/>
+        <Method name="dibujar" returnType="void" visibility="public">
+          <Argument type="SpriteBatch" name="batch"/>
+        </Method>
+        <Method name="actualizarMovimiento" returnType="void" visibility="public"/>
+        <Method name="destruir" returnType="void" visibility="public"/>
+        <Method name="estaHerido" returnType="boolean" visibility="public"/>
+        <Method name="checkCollision" returnType="boolean" visibility="public">
+          <Argument type="EntidadMovible" name="other"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ProyectilesENEMIGOS" package="puppy.code" visibility="public" xPosition="1177.0" yPosition="593.0">
+      <Fields>
+        <Field name="rainDropsPos" type="Array&lt;Rectangle&gt;" visibility="private"/>
+        <Field name="rainDropsType" type="Array&lt;Integer&gt;" visibility="private"/>
+        <Field name="lastDropTime" type="long" visibility="private"/>
+        <Field name="gotaBuena" type="Texture" visibility="private"/>
+        <Field name="gotaMala" type="Texture" visibility="private"/>
+        <Field name="dropSound" type="Sound" visibility="private"/>
+        <Field name="rainMusic" type="Music" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Texture" name="gotaBuena"/>
+          <Argument type="Texture" name="gotaMala"/>
+          <Argument type="Sound" name="ss"/>
+          <Argument type="Music" name="mm"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="crear" returnType="void" visibility="public"/>
+        <Method name="crearGotaDeLluvia" returnType="void" visibility="private"/>
+        <Method name="actualizarMovimiento" returnType="boolean" visibility="public">
+          <Argument type="PJprincipal" name="PJpri"/>
+        </Method>
+        <Method name="actualizarDibujoLluvia" returnType="void" visibility="public">
+          <Argument type="SpriteBatch" name="batch"/>
+        </Method>
+        <Method name="destruir" returnType="void" visibility="public"/>
+        <Method name="dibujar" returnType="void" visibility="public">
+          <Argument type="SpriteBatch" name="batch"/>
+        </Method>
+        <Method name="getArea" returnType="Rectangle" visibility="public"/>
+        <Method name="actualizarMovimiento" returnType="void" visibility="public"/>
+        <Method name="pausarMusica" returnType="void" visibility="public"/>
+        <Method name="continuarMusica" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PantallaMenu" package="puppy.code.Pantallas" visibility="public" xPosition="318.0" yPosition="563.0">
+      <Fields>
+        <Field name="game" type="GameBase" visibility="private" isFinal="true"/>
+        <Field name="camera" type="OrthographicCamera" visibility="private"/>
+        <Field name="batch" type="SpriteBatch" visibility="private"/>
+        <Field name="font" type="BitmapFont" visibility="private"/>
+        <Field name="fondoMusicaMenu" type="Music" visibility="private"/>
+        <Field name="menuOptions" type="String[]" visibility="private"/>
+        <Field name="hoveredIndex" type="int" visibility="private"/>
+        <Field name="menuBounds" type="Rectangle[]" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="GameBase" name="game"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="show" returnType="void" visibility="public"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="float" name="delta"/>
+        </Method>
+        <Method name="selectOption" returnType="void" visibility="private">
+          <Argument type="int" name="optionIndex"/>
+        </Method>
+        <Method name="resize" returnType="void" visibility="public">
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+        </Method>
+        <Method name="pause" returnType="void" visibility="public"/>
+        <Method name="resume" returnType="void" visibility="public"/>
+        <Method name="hide" returnType="void" visibility="public"/>
+        <Method name="dispose" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PantallaPausa" package="puppy.code.Pantallas" visibility="public" xPosition="730.0" yPosition="375.0">
+      <Fields>
+        <Field name="game" type="GameBase" visibility="private" isFinal="true"/>
+        <Field name="juego" type="PantallaJuego" visibility="private"/>
+        <Field name="camera" type="OrthographicCamera" visibility="private"/>
+        <Field name="batch" type="SpriteBatch" visibility="private"/>
+        <Field name="font" type="BitmapFont" visibility="private"/>
+        <Field name="musicaPausa" type="Music" visibility="private"/>
+        <Field name="pausaOpciones" type="String[]" visibility="private"/>
+        <Field name="selectedIndex" type="int" visibility="private"/>
+        <Field name="hoveredIndex" type="int" visibility="private"/>
+        <Field name="PausaBounds" type="Rectangle[]" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="GameBase" name="game"/>
+          <Argument type="PantallaJuego" name="juego"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="float" name="delta"/>
+        </Method>
+        <Method name="selectOption" returnType="void" visibility="private">
+          <Argument type="int" name="hoveredIndex"/>
+        </Method>
+        <Method name="show" returnType="void" visibility="public"/>
+        <Method name="resize" returnType="void" visibility="public">
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+        </Method>
+        <Method name="pause" returnType="void" visibility="public"/>
+        <Method name="resume" returnType="void" visibility="public"/>
+        <Method name="hide" returnType="void" visibility="public"/>
+        <Method name="dispose" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PantallaJuego" package="puppy.code.Pantallas" visibility="public" xPosition="889.0" yPosition="-17.0">
+      <Fields>
+        <Field name="game" type="GameBase" visibility="package" isFinal="true"/>
+        <Field name="camera" type="OrthographicCamera" visibility="private"/>
+        <Field name="batch" type="SpriteBatch" visibility="private"/>
+        <Field name="font" type="BitmapFont" visibility="private"/>
+        <Field name="pj" type="PJprincipal" visibility="private"/>
+        <Field name="proyectilesE" type="ProyectilesENEMIGOS" visibility="private"/>
+        <Field name="tiempo" type="float" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="GameBase" name="game"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="show" returnType="void" visibility="public"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="float" name="delta"/>
+        </Method>
+        <Method name="resize" returnType="void" visibility="public">
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+        </Method>
+        <Method name="pause" returnType="void" visibility="public"/>
+        <Method name="resume" returnType="void" visibility="public"/>
+        <Method name="hide" returnType="void" visibility="public"/>
+        <Method name="dispose" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PantallaGameOver" package="puppy.code.Pantallas" visibility="public" xPosition="32.0" yPosition="109.0">
+      <Fields>
+        <Field name="game" type="GameBase" visibility="private" isFinal="true"/>
+        <Field name="batch" type="SpriteBatch" visibility="private"/>
+        <Field name="font" type="BitmapFont" visibility="private"/>
+        <Field name="camera" type="OrthographicCamera" visibility="private"/>
+        <Field name="musicaGameOver" type="Music" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="GameBase" name="game"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="show" returnType="void" visibility="public"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="float" name="delta"/>
+        </Method>
+        <Method name="resize" returnType="void" visibility="public">
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+        </Method>
+        <Method name="pause" returnType="void" visibility="public"/>
+        <Method name="resume" returnType="void" visibility="public"/>
+        <Method name="hide" returnType="void" visibility="public"/>
+        <Method name="dispose" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="EntidadMovible" package="puppy.code.Controladores" visibility="public" isAbstract="true" xPosition="2120.0" yPosition="576.0">
+      <Fields>
+        <Field name="spr" type="Sprite" visibility="protected"/>
+        <Field name="velX" type="int" visibility="protected"/>
+        <Field name="velY" type="int" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="xSpeed"/>
+          <Argument type="int" name="ySpeed"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="checkCollision" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="EntidadMovible" name="other"/>
+        </Method>
+        <Method name="crear" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="getArea" returnType="Rectangle" visibility="public"/>
+        <Method name="getXSpeed" returnType="int" visibility="public"/>
+        <Method name="setXSpeed" returnType="void" visibility="public">
+          <Argument type="int" name="xSpeed"/>
+        </Method>
+        <Method name="getYSpeed" returnType="int" visibility="public"/>
+        <Method name="setYSpeed" returnType="void" visibility="public">
+          <Argument type="int" name="ySpeed"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Mostrable" package="puppy.code.Controladores" visibility="public" xPosition="1789.0" yPosition="666.0">
+      <Methods>
+        <Method name="dibujar" returnType="void" visibility="public">
+          <Argument type="SpriteBatch" name="batch"/>
+        </Method>
+        <Method name="actualizarMovimiento" returnType="void" visibility="public"/>
+        <Method name="getArea" returnType="Rectangle" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="game" source="puppy.code.Pantallas.PantallaJuego" target="puppy.code.GameBase" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="game" source="puppy.code.Pantallas.PantallaMenu" target="puppy.code.GameBase" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="game" source="puppy.code.Pantallas.PantallaGameOver" target="puppy.code.GameBase" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="puppy.code.PJprincipal" target="puppy.code.Controladores.Mostrable"/>
+    <IsRelation name="is" source="puppy.code.PJprincipal" target="puppy.code.Controladores.EntidadMovible"/>
+    <HasRelation name="proyectilesE" source="puppy.code.Pantallas.PantallaJuego" target="puppy.code.ProyectilesENEMIGOS" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="juego" source="puppy.code.Pantallas.PantallaPausa" target="puppy.code.Pantallas.PantallaJuego" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="game" source="puppy.code.Pantallas.PantallaPausa" target="puppy.code.GameBase" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="puppy.code.ProyectilesENEMIGOS" target="puppy.code.Controladores.Mostrable"/>
+    <HasRelation name="pj" source="puppy.code.Pantallas.PantallaJuego" target="puppy.code.PJprincipal" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
