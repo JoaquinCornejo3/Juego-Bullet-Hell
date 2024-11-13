@@ -17,16 +17,18 @@ public class ProyectilesENEMIGOS implements Mostrable{
     private Array<Rectangle> rainDropsPos;
     private Array<Integer> rainDropsType;
     private long lastDropTime;
+    private int velocidadY;
     private Texture gotaBuena;
     private Texture gotaMala;
     private Sound dropSound;
     private Music rainMusic;
 
-    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm) {
+    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm, int velocidadY) {
         rainMusic = mm;
         dropSound = ss;
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
+        this.velocidadY = velocidadY;
     }
 
     public void crear() {
@@ -53,13 +55,13 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         lastDropTime = TimeUtils.nanoTime();
     }
-    public boolean actualizarMovimiento(PJprincipal PJpri) {
+    public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
         }
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
-            raindrop.y -= 300 * Gdx.graphics.getDeltaTime();
+            raindrop.y -= velY * Gdx.graphics.getDeltaTime();
                       
             if (raindrop.y + 64 < 0) {
                 rainDropsPos.removeIndex(i);
@@ -86,7 +88,6 @@ public class ProyectilesENEMIGOS implements Mostrable{
         return true;
     }
     public void actualizarDibujoLluvia(SpriteBatch batch) {
-
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             if (rainDropsType.get(i) == 1) 
@@ -120,6 +121,14 @@ public class ProyectilesENEMIGOS implements Mostrable{
 
     public void continuarMusica() {
         rainMusic.play();
+    }
+    
+    public int getVelY(){
+        return velocidadY;
+    }
+    
+    public void setVelY(int velocidad){
+        velocidadY = velocidad;
     }
 
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import java.util.HashSet;
 import puppy.code.*;
 
 public class PantallaJuego implements Screen {
@@ -38,7 +39,7 @@ public class PantallaJuego implements Screen {
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica);
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica, 300);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -55,21 +56,30 @@ public class PantallaJuego implements Screen {
     @Override
     public void render(float delta) {
         tiempo += delta;
-        
         int minutos = (int) tiempo / 60;
         int segundos = (int) tiempo % 60;
+        int velocidadY = proyectilesE.getVelY();
         
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        
+        
+        
+        if(segundos % 30 == 0 && segundos != 0){
+            proyectilesE.setVelY(velocidadY + 5);
+            font.draw(batch, "LEVEL UP!", camera.viewportWidth/2, camera.viewportHeight/2);
+        }
+        
+        
         font.draw(batch, "Gotas totales: " + pj.getPuntos(), 2, 475);//5, 475
         font.draw(batch, "Vidas : " + pj.getVidas(), camera.viewportWidth * 3 /4, 475);
         font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth /3, 475);///3, 470
         
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
-            if (!proyectilesE.actualizarMovimiento(pj)) {
+            if (!proyectilesE.actualizarMovimiento(pj, velocidadY)) {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
@@ -106,6 +116,8 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void dispose() {
+        // Liberar recursos correctamente
+        pj.destruir();
+        proyectilesE.destruir();
     }
-    
 }
