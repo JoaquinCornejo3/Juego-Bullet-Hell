@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package puppy.code.Pantallas;
 
 import com.badlogic.gdx.Gdx;
@@ -9,30 +5,33 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import puppy.code.GameBase;
 
-/**
- *
- * @author Vixho
- */
-public class PantallaPausa implements Screen{
+public class PantallaPausa implements Screen {
     private final GameBase game;
     private PantallaJuego juego;
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private BitmapFont font;
-    private Music musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
+    private Music musicaPausa;
+    
+    private Animation<TextureRegion> fondoAnimado;
+    private float stateTime;
 
-    private String[] pausaOpciones = {"Continuar","Reiniciar","Salir"};
+    private String[] pausaOpciones = {"Continuar", "Reiniciar", "Salir"};
     private int selectedIndex = 0;
     private int hoveredIndex;
     private Rectangle[] PausaBounds;
-    
+
     public PantallaPausa(GameBase game, PantallaJuego juego) {
         this.game = game;
         this.juego = juego;
@@ -42,14 +41,27 @@ public class PantallaPausa implements Screen{
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
         PausaBounds = new Rectangle[pausaOpciones.length];
+        // Reposicionar los botones un poco más abajo
         for (int i = 0; i < pausaOpciones.length; i++) {
-            PausaBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30); 
+            PausaBounds[i] = new Rectangle(150 + i * 200, 100, 150, 30); // Cambié la posición Y para bajarlos
         }
+
+        // Cargar los frames para el fondo animado
+        Array<TextureRegion> frames = new Array<>();
+        for (int i = 1; i <= 10; i++) {
+            String fileName = String.format("GIF PAUSA/frame%d.png", i);
+            frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
+        }
+        fondoAnimado = new Animation<>(0.1f, frames); // 0.1s por frame
+        stateTime = 0f;
+
+        musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
     }
-    
+
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
+        stateTime += delta; // Actualizar el tiempo para la animación del fondo
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
@@ -66,30 +78,36 @@ public class PantallaPausa implements Screen{
         }
 
         batch.begin();
+
+        // Dibujar el fondo animado
+        TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
+        batch.draw(currentFrame, 0, 0, 800, 480);
+
+        // Dibujar las opciones de pausa de izquierda a derecha
         for (int i = 0; i < pausaOpciones.length; i++) {
             if (i == hoveredIndex) {
-                font.draw(batch, "> " + pausaOpciones[i], 350, 300 - i * 40); 
+                font.draw(batch, "> " + pausaOpciones[i], PausaBounds[i].x, PausaBounds[i].y + PausaBounds[i].height);
             } else {
-                font.draw(batch, pausaOpciones[i], 350, 300 - i * 40);
+                font.draw(batch, pausaOpciones[i], PausaBounds[i].x, PausaBounds[i].y + PausaBounds[i].height);
             }
         }
         batch.end();
 
         if (Gdx.input.isTouched() && hoveredIndex != -1) {
-            selectOption(hoveredIndex); 
+            selectOption(hoveredIndex);
         }
     }
-    
-    private void selectOption(int hoveredIndex){
-        switch(selectedIndex){
+
+    private void selectOption(int hoveredIndex) {
+        switch (selectedIndex) {
             case 0:
-                game.setScreen(juego);
+                game.setScreen(juego); // Continuar el juego
                 break;
             case 1:
-                game.setScreen(new PantallaJuego(game));
+                game.setScreen(new PantallaJuego(game)); // Reiniciar juego
                 break;
             case 2:
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new PantallaMenu(game)); // Ir al menú
                 break;
         }
     }
@@ -121,6 +139,6 @@ public class PantallaPausa implements Screen{
     public void dispose() {
         batch.dispose();
         font.dispose();
+        musicaPausa.dispose();
     }
-    
 }
