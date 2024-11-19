@@ -130,6 +130,4 @@ public class ProyectilesENEMIGOS implements Mostrable{
     public void setVelY(int velocidad){
         velocidadY = velocidad;
     }
-
-
 }
