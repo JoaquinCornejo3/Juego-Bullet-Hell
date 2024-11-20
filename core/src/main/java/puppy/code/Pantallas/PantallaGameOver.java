@@ -46,7 +46,7 @@ public class PantallaGameOver implements Screen {
 
     private void cargarFondoAnimado() {
         for (int i = 1; i <= 26; i++) { // Tenemos 26 imágenes para el fondo
-            String fileName = String.format("assets/GIF GAMEOVER/frame%d.png", i);
+            String fileName = String.format("GIF GAMEOVER/frame%d.png", i);
 
             // Verificamos si el archivo existe antes de intentar cargarlo
             if (Gdx.files.internal(fileName).exists()) {
@@ -92,7 +92,7 @@ public class PantallaGameOver implements Screen {
         String gameOverText = "GAME OVER";
         float gameOverWidth = font.getRegion().getRegionWidth();
         float gameOverX = (1100 - gameOverWidth) / 2;
-        font.draw(batch, gameOverText, gameOverX, 300);
+        font.draw(batch, gameOverText, gameOverX, 350);
 
         String retryMessage = "Toca en cualquier lado con tu mouse para reiniciar.";
         float retryMessageWidth = font.getRegion().getRegionWidth();

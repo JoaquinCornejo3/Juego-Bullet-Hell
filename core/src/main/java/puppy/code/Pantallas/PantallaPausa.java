@@ -32,6 +32,8 @@ public class PantallaPausa implements Screen {
     private int hoveredIndex;
     private Rectangle[] PausaBounds;
 
+    private boolean isPaused; // Variable para controlar si está en pausa o no
+
     public PantallaPausa(GameBase game, PantallaJuego juego) {
         this.game = game;
         this.juego = juego;
@@ -43,19 +45,20 @@ public class PantallaPausa implements Screen {
         PausaBounds = new Rectangle[pausaOpciones.length];
         // Reposicionar los botones un poco más abajo
         for (int i = 0; i < pausaOpciones.length; i++) {
-            PausaBounds[i] = new Rectangle(150 + i * 200, 100, 150, 30); // Cambié la posición Y para bajarlos
+            PausaBounds[i] = new Rectangle(150 + i * 200, 70, 150, 30); // Cambié la posición Y para bajarlos
         }
 
         // Cargar los frames para el fondo animado
         Array<TextureRegion> frames = new Array<>();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 39; i++) {
             String fileName = String.format("GIF PAUSA/frame%d.png", i);
             frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
         }
-        fondoAnimado = new Animation<>(0.1f, frames); // 0.1s por frame
+        fondoAnimado = new Animation<>(0.05f, frames); // 0.05s por frame para hacer que se mueva más rápido
         stateTime = 0f;
 
         musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
+        isPaused = true; // Inicialmente está en pausa
     }
 
     @Override
@@ -95,6 +98,14 @@ public class PantallaPausa implements Screen {
 
         if (Gdx.input.isTouched() && hoveredIndex != -1) {
             selectOption(hoveredIndex);
+        }
+
+        // Detectar si la tecla ESC o P ha sido presionada
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.P)) {
+            if (isPaused) {
+                game.setScreen(juego); // Volver al juego
+                isPaused = false; // Cambiar el estado de pausa
+            }
         }
     }
 

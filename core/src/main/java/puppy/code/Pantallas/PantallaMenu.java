@@ -45,8 +45,8 @@ public class PantallaMenu implements Screen {
 
         // Cargar frames de la animación desde "assets/GIF MENU"
         Array<TextureRegion> frames = new Array<>();
-        for (int i = 0; i <= 27; i++) { // Hay 28 frames: 0 al 27
-            String fileName = String.format("GIF MENU/frame_%02d_delay-0.02s.png", i);
+        for (int i = 1; i <= 22; i++) { 
+            String fileName = String.format("GIF MENU/frame%d.png", i);
             frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
         }
         fondoAnimado = new Animation<>(0.02f, frames, Animation.PlayMode.LOOP); // Duración de cada frame: 0.02s
@@ -105,18 +105,19 @@ public class PantallaMenu implements Screen {
     }
 
     private void selectOption(int optionIndex) {
-        switch (optionIndex) {
-            case 0: // Iniciar juego
-                game.setScreen(new PantallaJuego(game));
-                break;
-            case 1: // Opciones
-                // Implementar lógica de opciones
-                break;
-            case 2: // Salir
-                Gdx.app.exit();
-                break;
-        }
+    switch (optionIndex) {
+        case 0: // Iniciar juego
+            game.setScreen(new PantallaJuego(game));
+            break;
+        case 1: // Opciones
+            game.setScreen(new PantallaOpciones(game)); // Cambiar a la pantalla de opciones
+            break;
+        case 2: // Salir
+            Gdx.app.exit();
+            break;
     }
+}
+
 
     @Override
     public void resize(int width, int height) {}
