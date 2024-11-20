@@ -32,7 +32,7 @@ public class PantallaPausa implements Screen {
     private int hoveredIndex;
     private Rectangle[] PausaBounds;
 
-    private boolean isPaused; // Variable para controlar si está en pausa o no
+    private boolean isPaused; 
 
     public PantallaPausa(GameBase game, PantallaJuego juego) {
         this.game = game;
@@ -43,33 +43,31 @@ public class PantallaPausa implements Screen {
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
         PausaBounds = new Rectangle[pausaOpciones.length];
-        // Reposicionar los botones un poco más abajo
         for (int i = 0; i < pausaOpciones.length; i++) {
-            PausaBounds[i] = new Rectangle(150 + i * 200, 70, 150, 30); // Cambié la posición Y para bajarlos
+            PausaBounds[i] = new Rectangle(150 + i * 200, 70, 150, 30); 
         }
 
-        // Cargar los frames para el fondo animado
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i <= 39; i++) {
             String fileName = String.format("GIF PAUSA/frame%d.png", i);
             frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
         }
-        fondoAnimado = new Animation<>(0.05f, frames); // 0.05s por frame para hacer que se mueva más rápido
+        fondoAnimado = new Animation<>(0.05f, frames); 
         stateTime = 0f;
 
         musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
-        isPaused = true; // Inicialmente está en pausa
+        isPaused = true; 
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-        stateTime += delta; // Actualizar el tiempo para la animación del fondo
+        stateTime += delta; 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(mousePos); // Convertir a coordenadas de la cámara
+        camera.unproject(mousePos); 
 
         hoveredIndex = -1;
         for (int i = 0; i < PausaBounds.length; i++) {
@@ -82,11 +80,9 @@ public class PantallaPausa implements Screen {
 
         batch.begin();
 
-        // Dibujar el fondo animado
         TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
         batch.draw(currentFrame, 0, 0, 800, 480);
 
-        // Dibujar las opciones de pausa de izquierda a derecha
         for (int i = 0; i < pausaOpciones.length; i++) {
             if (i == hoveredIndex) {
                 font.draw(batch, "> " + pausaOpciones[i], PausaBounds[i].x, PausaBounds[i].y + PausaBounds[i].height);
@@ -100,11 +96,10 @@ public class PantallaPausa implements Screen {
             selectOption(hoveredIndex);
         }
 
-        // Detectar si la tecla ESC o P ha sido presionada
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.P)) {
             if (isPaused) {
-                game.setScreen(juego); // Volver al juego
-                isPaused = false; // Cambiar el estado de pausa
+                game.setScreen(juego); 
+                isPaused = false; 
             }
         }
     }
@@ -112,13 +107,13 @@ public class PantallaPausa implements Screen {
     private void selectOption(int hoveredIndex) {
         switch (selectedIndex) {
             case 0:
-                game.setScreen(juego); // Continuar el juego
+                game.setScreen(juego);
                 break;
             case 1:
-                game.setScreen(new PantallaJuego(game)); // Reiniciar juego
+                game.setScreen(new PantallaJuego(game)); 
                 break;
             case 2:
-                game.setScreen(new PantallaMenu(game)); // Ir al menú
+                game.setScreen(new PantallaMenu(game)); 
                 break;
         }
     }

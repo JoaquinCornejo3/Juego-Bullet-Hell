@@ -23,7 +23,7 @@ public class PantallaMenu implements Screen {
     private Music fondoMusicaMenu;
 
     private Animation<TextureRegion> fondoAnimado;
-    private float stateTime; // Tiempo para controlar la animación
+    private float stateTime; 
 
     private String[] menuOptions = {"Iniciar Juego", "Opciones", "Salir"};
     private int hoveredIndex = -1;
@@ -37,20 +37,17 @@ public class PantallaMenu implements Screen {
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
         fondoMusicaMenu = Gdx.audio.newMusic(Gdx.files.internal("musicaMenu.wav"));
-
         menuBounds = new Rectangle[menuOptions.length];
         for (int i = 0; i < menuOptions.length; i++) {
             menuBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30);
         }
-
-        // Cargar frames de la animación desde "assets/GIF MENU"
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i <= 22; i++) { 
             String fileName = String.format("GIF MENU/frame%d.png", i);
             frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
         }
-        fondoAnimado = new Animation<>(0.02f, frames, Animation.PlayMode.LOOP); // Duración de cada frame: 0.02s
-        stateTime = 0f; // Inicializar el tiempo de animación
+        fondoAnimado = new Animation<>(0.02f, frames, Animation.PlayMode.LOOP); 
+        stateTime = 0f; 
     }
 
     @Override
@@ -61,18 +58,15 @@ public class PantallaMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        stateTime += delta; // Actualizar el tiempo de la animación
+        stateTime += delta; 
 
-        // Limpiar pantalla
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        // Obtener posición del ratón
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
 
-        // Determinar si el ratón está sobre una opción del menú
         hoveredIndex = -1;
         for (int i = 0; i < menuBounds.length; i++) {
             if (menuBounds[i].contains(mousePos.x, mousePos.y)) {
@@ -83,11 +77,9 @@ public class PantallaMenu implements Screen {
 
         batch.begin();
 
-        // Dibujar el fondo animado
         TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
         batch.draw(currentFrame, 0, 0, 800, 480);
 
-        // Dibujar las opciones del menú
         for (int i = 0; i < menuOptions.length; i++) {
             if (i == hoveredIndex) {
                 font.draw(batch, "> " + menuOptions[i], 350, 300 - i * 40);
@@ -95,10 +87,7 @@ public class PantallaMenu implements Screen {
                 font.draw(batch, menuOptions[i], 350, 300 - i * 40);
             }
         }
-
         batch.end();
-
-        // Manejar la selección de una opción al hacer clic
         if (Gdx.input.isTouched() && hoveredIndex != -1) {
             selectOption(hoveredIndex);
         }
@@ -106,19 +95,17 @@ public class PantallaMenu implements Screen {
 
     private void selectOption(int optionIndex) {
     switch (optionIndex) {
-        case 0: // Iniciar juego
+        case 0: 
             game.setScreen(new PantallaJuego(game));
             break;
         case 1: // Opciones
-            game.setScreen(new PantallaOpciones(game)); // Cambiar a la pantalla de opciones
+            game.setScreen(new PantallaOpciones(game)); 
             break;
-        case 2: // Salir
+        case 2:
             Gdx.app.exit();
             break;
     }
 }
-
-
     @Override
     public void resize(int width, int height) {}
 

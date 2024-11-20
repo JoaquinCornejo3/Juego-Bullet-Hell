@@ -24,7 +24,7 @@ public class PantallaJuego implements Screen {
     private ProyectilesENEMIGOS proyectilesE;
 
     private Animation<TextureRegion> fondoAnimado;
-    private float stateTime; // Tiempo para controlar la animación del fondo
+    private float stateTime; 
 
     private float tiempo = 0;
 
@@ -46,13 +46,12 @@ public class PantallaJuego implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        // Cargar los frames para el fondo animado
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i <= 6; i++) {
             String fileName = String.format("GIF JUEGO/frame%d.png", i);
             frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
         }
-        fondoAnimado = new Animation<>(0.1f, frames, Animation.PlayMode.LOOP); // 0.1s por frame
+        fondoAnimado = new Animation<>(0.1f, frames, Animation.PlayMode.LOOP); 
         stateTime = 0f;
 
         pj.crear();
@@ -66,7 +65,7 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void render(float delta) {
-        stateTime += delta; // Actualizar el tiempo para la animación del fondo
+        stateTime += delta; 
         tiempo += delta;
 
         int minutos = (int) tiempo / 60;
@@ -79,11 +78,9 @@ public class PantallaJuego implements Screen {
 
         batch.begin();
 
-        // Dibujar el fondo animado
         TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
         batch.draw(currentFrame, 0, 0, 800, 480);
 
-        // Dibujar información del juego
         if (segundos % 30 == 0 && segundos != 0) {
             proyectilesE.setVelY(velocidadY + 5);
             font.draw(batch, "LEVEL UP!", camera.viewportWidth / 2, camera.viewportHeight / 2);
@@ -92,7 +89,6 @@ public class PantallaJuego implements Screen {
         font.draw(batch, "Vidas : " + pj.getVidas(), camera.viewportWidth * 3 / 4, 475);
         font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth / 3, 475);
 
-        // Actualizar y dibujar los elementos del juego
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
             if (!proyectilesE.actualizarMovimiento(pj, velocidadY)) {
@@ -107,7 +103,6 @@ public class PantallaJuego implements Screen {
         pj.dibujar(batch);
         proyectilesE.actualizarDibujoLluvia(batch);
 
-        // Manejar pausa
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
         }
@@ -139,21 +134,16 @@ public class PantallaJuego implements Screen {
             proyectilesE.destruir();
 
             Gdx.app.log("Dispose", "Llamado a dispose");
-
-            // Comentar la liberación de recursos y verificar si el problema persiste
-            // Liberar las texturas del fondo animado
-            if (fondoAnimado != null) {
-                // Obtener los frames de la animación (que son TextureRegion)
+          
+            if (fondoAnimado != null) {            
                 for (TextureRegion frame : fondoAnimado.getKeyFrames()) {
-                    Texture texture = frame.getTexture();  // Obtener la textura de cada frame
+                    Texture texture = frame.getTexture();  
                     if (texture != null) {
                         Gdx.app.log("Dispose", "Liberando textura: " + texture);
-                        texture.dispose();  // Liberar la textura
+                        texture.dispose();  
                     }
                 }
             }
-
-            // Liberar recursos adicionales si es necesario
             Gdx.app.log("Dispose", "Recursos liberados correctamente");
 
         } catch (Exception e) {
