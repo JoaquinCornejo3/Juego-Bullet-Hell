@@ -38,7 +38,7 @@ public class PantallaOpciones implements Screen {
         batch.begin();
 
         // Calcular las posiciones para centrar el texto
-        String titulo = "Pantalla de Opciones";
+        String titulo = "Opciones";
         String mensaje = "Presiona ESC para volver al menu principal";
 
         GlyphLayout layout = new GlyphLayout();
@@ -53,7 +53,7 @@ public class PantallaOpciones implements Screen {
         layout.setText(font, mensaje);
         float mensajeWidth = layout.width;
         float mensajeX = (800 - mensajeWidth) / 2;
-        float mensajeY = 350; // Altura donde se muestra el mensaje
+        float mensajeY = 200; // Altura donde se muestra el mensaje
 
         // Dibujar los textos centrados
         font.draw(batch, titulo, tituloX, tituloY);
