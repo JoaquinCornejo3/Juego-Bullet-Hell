@@ -24,19 +24,23 @@ public class ProyectilesENEMIGOS implements Mostrable{
     private Array<Integer> rainDropsType;
     private long lastDropTime;
     private int velocidadY;
+    private int velocidadX;
     private Texture gotaBuena;
     private Texture gotaMala;
     private Texture gotaGod;
     private Sound dropSound;
     private Music rainMusic;
 
-    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Texture gotaGod, Sound ss, Music mm, int velocidadY) {
+    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, 
+                               Texture gotaGod, Sound ss, Music mm,
+                               int velocidadY, int velocidadX) {
         rainMusic = mm;
         dropSound = ss;
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
         this.gotaGod = gotaGod;
         this.velocidadY = velocidadY;
+        this.velocidadX = velocidadX;
     }
 
     public void crear() {
@@ -57,7 +61,7 @@ public class ProyectilesENEMIGOS implements Mostrable{
         
         // ver el tipo de gota    
         int tipo = MathUtils.random(1,10);
-        if(tipo <= 3){
+        if(tipo <= 2){
             rainDropsType.add(2);
         }
         if (tipo >= 3 && tipo <= 9){
@@ -70,13 +74,17 @@ public class ProyectilesENEMIGOS implements Mostrable{
         lastDropTime = TimeUtils.nanoTime();
     }
     
-    public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
+    public boolean actualizarMovimiento(PJprincipal PJpri, int velY, int velX, boolean cambio) {
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
         }
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             raindrop.y -= velY * Gdx.graphics.getDeltaTime();
+            
+            if (cambio){
+                raindrop.x += velX * Gdx.graphics.getDeltaTime();
+            }
             
             int vidas = PJpri.getVidas();
                       
@@ -162,5 +170,13 @@ public class ProyectilesENEMIGOS implements Mostrable{
     
     public void setVelY(int velocidad){
         velocidadY = velocidad;
+    }
+    
+    public int getVelX(){
+        return velocidadX;
+    }
+    
+    public void setVelX(int velocidadX){
+        this.velocidadX = velocidadX;
     }
 }

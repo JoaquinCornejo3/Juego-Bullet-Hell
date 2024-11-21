@@ -22,6 +22,7 @@ public class PantallaJuego implements Screen {
     private BitmapFont font;
     private PJprincipal pj;
     private ProyectilesENEMIGOS proyectilesE;
+    private boolean cambio = false;
 
     private Animation<TextureRegion> fondoAnimado;
     private float stateTime; 
@@ -42,7 +43,7 @@ public class PantallaJuego implements Screen {
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300);
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300, 100);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -72,6 +73,7 @@ public class PantallaJuego implements Screen {
         int minutos = (int) tiempo / 60;
         int segundos = (int) tiempo % 60;
         int velocidadY = proyectilesE.getVelY();
+        int velocidadX = proyectilesE.getVelX();
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
@@ -93,7 +95,10 @@ public class PantallaJuego implements Screen {
         
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
-            if (!proyectilesE.actualizarMovimiento(pj, velocidadY)) {
+            if (minutos == 2){
+                cambio = true;
+            }
+            if (!proyectilesE.actualizarMovimiento(pj, velocidadY, velocidadX, cambio)) {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
