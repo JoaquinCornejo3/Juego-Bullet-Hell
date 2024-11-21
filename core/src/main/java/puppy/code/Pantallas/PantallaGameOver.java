@@ -20,7 +20,7 @@ public class PantallaGameOver implements Screen {
     private OrthographicCamera camera;
     private Music musicaGameOver;
     private Array<TextureRegion> frames;
-    private float stateTime; // Tiempo para controlar la animación del fondo
+    private float stateTime; 
 
     public PantallaGameOver(final GameBase game) {
         this.game = game;
@@ -35,24 +35,20 @@ public class PantallaGameOver implements Screen {
         musicaGameOver.setLooping(true);
         musicaGameOver.play();
 
-        // Inicializamos el Array para los frames
         frames = new Array<>();
 
-        // Intentamos cargar las imágenes del fondo animado
         cargarFondoAnimado();
         
         stateTime = 0f;
     }
-
     private void cargarFondoAnimado() {
-        for (int i = 1; i <= 26; i++) { // Tenemos 26 imágenes para el fondo
+        for (int i = 1; i <= 26; i++) { 
             String fileName = String.format("GIF GAMEOVER/frame%d.png", i);
 
-            // Verificamos si el archivo existe antes de intentar cargarlo
             if (Gdx.files.internal(fileName).exists()) {
                 try {
                     frames.add(new TextureRegion(new Texture(Gdx.files.internal(fileName))));
-                    System.out.println("Archivo cargado correctamente: " + fileName); // Mensaje en consola para confirmar carga
+                    System.out.println("Archivo cargado correctamente: " + fileName); 
                 } catch (Exception e) {
                     System.out.println("Error al cargar la imagen: " + fileName + " - " + e.getMessage());
                 }
@@ -61,7 +57,6 @@ public class PantallaGameOver implements Screen {
             }
         }
 
-        // Si no se cargaron los frames, mostramos un mensaje de advertencia
         if (frames.size == 0) {
             System.out.println("No se cargaron frames para el fondo animado.");
         }
@@ -79,16 +74,14 @@ public class PantallaGameOver implements Screen {
 
         batch.begin();
 
-        // Dibujar fondo animado solo si se han cargado los frames
         if (frames.size > 0) {
-            stateTime += delta; // Actualizar el tiempo para la animación
-            TextureRegion currentFrame = frames.get((int)(stateTime / 0.1f) % frames.size); // Usamos el índice de la animación
+            stateTime += delta; 
+            TextureRegion currentFrame = frames.get((int)(stateTime / 0.1f) % frames.size); 
             batch.draw(currentFrame, 0, 0, 800, 480);
         } else {
             System.out.println("No se puede dibujar el fondo, ya que los frames no fueron cargados.");
         }
 
-        // Mensajes de "Game Over"
         String gameOverText = "GAME OVER";
         float gameOverWidth = font.getRegion().getRegionWidth();
         float gameOverX = (1100 - gameOverWidth) / 2;

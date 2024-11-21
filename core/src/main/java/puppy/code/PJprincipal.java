@@ -36,6 +36,10 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
     public int getVidas() {
         return vidas;
     }
+    
+    public void setVidas(int vidas){
+        this.vidas = vidas;
+    }
 
     public int getPuntos() {
         return puntos;

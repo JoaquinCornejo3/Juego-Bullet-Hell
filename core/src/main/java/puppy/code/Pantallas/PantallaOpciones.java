@@ -29,39 +29,33 @@ public class PantallaOpciones implements Screen {
 
     @Override
     public void render(float delta) {
-        // Establecer el fondo negro (RGBA: 0, 0, 0, 1)
-        ScreenUtils.clear(0, 0, 0, 1); // Este es el color negro
+        ScreenUtils.clear(0, 0, 0, 1); 
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
 
-        // Calcular las posiciones para centrar el texto
-        String titulo = "Pantalla de Opciones";
+        String titulo = "Opciones";
         String mensaje = "Presiona ESC para volver al menu principal";
 
         GlyphLayout layout = new GlyphLayout();
 
-        // Centrar el título
         layout.setText(font, titulo);
         float tituloWidth = layout.width;
-        float tituloX = (800 - tituloWidth) / 2; // 800 es el ancho de la pantalla
-        float tituloY = 400; // Altura donde se muestra el título
+        float tituloX = (800 - tituloWidth) / 2; 
+        float tituloY = 400; 
 
-        // Centrar el mensaje
         layout.setText(font, mensaje);
         float mensajeWidth = layout.width;
         float mensajeX = (800 - mensajeWidth) / 2;
-        float mensajeY = 350; // Altura donde se muestra el mensaje
+        float mensajeY = 200; 
 
-        // Dibujar los textos centrados
         font.draw(batch, titulo, tituloX, tituloY);
         font.draw(batch, mensaje, mensajeX, mensajeY);
 
         batch.end();
 
-        // Volver al menú principal al presionar ESC
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             game.setScreen(new PantallaMenu(game));
         }
