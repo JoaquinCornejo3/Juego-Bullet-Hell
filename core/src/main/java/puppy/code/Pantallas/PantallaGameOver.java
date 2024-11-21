@@ -41,6 +41,7 @@ public class PantallaGameOver implements Screen {
         
         stateTime = 0f;
     }
+    
     private void cargarFondoAnimado() {
         for (int i = 1; i <= 26; i++) { 
             String fileName = String.format("GIF GAMEOVER/frame%d.png", i);

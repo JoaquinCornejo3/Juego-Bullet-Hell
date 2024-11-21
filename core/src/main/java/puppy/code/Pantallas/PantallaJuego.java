@@ -35,13 +35,13 @@ public class PantallaJuego implements Screen {
         this.font = game.getFont();
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
-        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.mp3"));
         pj = new PJprincipal(new Texture(Gdx.files.internal("nerd 64.png")), hurtSound, 500, 500) {};
 
         Texture gota = new Texture(Gdx.files.internal("drop.png"));
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
-        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaJuego.mp3"));
         proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300, 100);
 
