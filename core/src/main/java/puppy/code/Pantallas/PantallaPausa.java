@@ -55,7 +55,7 @@ public class PantallaPausa implements Screen {
         fondoAnimado = new Animation<>(0.05f, frames); 
         stateTime = 0f;
 
-        musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("MusicaPausa.mp3"));
+        musicaPausa = Gdx.audio.newMusic(Gdx.files.internal("musicaPausa.mp3"));
         isPaused = true; 
     }
 

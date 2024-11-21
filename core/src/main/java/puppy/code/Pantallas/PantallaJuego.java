@@ -42,7 +42,7 @@ public class PantallaJuego implements Screen {
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
+        Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaJuego.mp3"));
         proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300, 100);
 
         camera = new OrthographicCamera();

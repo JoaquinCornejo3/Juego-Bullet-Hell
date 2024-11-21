@@ -36,7 +36,7 @@ public class PantallaMenu implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("letritas.fnt"));
 
-        fondoMusicaMenu = Gdx.audio.newMusic(Gdx.files.internal("musicaMenu.wav"));
+        fondoMusicaMenu = Gdx.audio.newMusic(Gdx.files.internal("menuMusica.mp3"));
         menuBounds = new Rectangle[menuOptions.length];
         for (int i = 0; i < menuOptions.length; i++) {
             menuBounds[i] = new Rectangle(350, 300 - i * 40 - 20, 200, 30);

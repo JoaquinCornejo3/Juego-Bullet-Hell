@@ -31,7 +31,7 @@ public class PantallaGameOver implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("MusicaGameOver.mp3"));
+        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("musicaMuerte.mp3"));
         musicaGameOver.setLooping(true);
         musicaGameOver.play();
 
