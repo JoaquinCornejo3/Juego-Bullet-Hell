@@ -39,9 +39,10 @@ public class PantallaJuego implements Screen {
 
         Texture gota = new Texture(Gdx.files.internal("drop.png"));
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
+        Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica, 300);
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -76,13 +77,12 @@ public class PantallaJuego implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
 
         // Dibujar el fondo animado
         TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
         batch.draw(currentFrame, 0, 0, 800, 480);
-
+        
         // Dibujar información del juego
         if (segundos % 30 == 0 && segundos != 0) {
             proyectilesE.setVelY(velocidadY + 5);

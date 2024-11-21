@@ -20,14 +20,16 @@ public class ProyectilesENEMIGOS implements Mostrable{
     private int velocidadY;
     private Texture gotaBuena;
     private Texture gotaMala;
+    private Texture gotaGod;
     private Sound dropSound;
     private Music rainMusic;
 
-    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm, int velocidadY) {
+    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Texture gotaGod, Sound ss, Music mm, int velocidadY) {
         rainMusic = mm;
         dropSound = ss;
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
+        this.gotaGod = gotaGod;
         this.velocidadY = velocidadY;
     }
 
@@ -55,6 +57,7 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         lastDropTime = TimeUtils.nanoTime();
     }
+    
     public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
@@ -87,6 +90,7 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         return true;
     }
+    
     public void actualizarDibujoLluvia(SpriteBatch batch) {
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
@@ -98,6 +102,7 @@ public class ProyectilesENEMIGOS implements Mostrable{
             }
         }
     }
+    
     public void destruir() {
         dropSound.dispose();
         rainMusic.dispose();
