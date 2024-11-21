@@ -47,12 +47,28 @@ public class ProyectilesENEMIGOS implements Mostrable{
         raindrop.height = 48; //64
         rainDropsPos.add(raindrop);
         
-        // ver el tipo de gota
+        
+        
+        
+        /*
         if (MathUtils.random(1, 10) <= 3) {
             rainDropsType.add(2);
         } else {
             rainDropsType.add(1);
         }
+        */
+        
+        // ver el tipo de gota
+        int tipo = MathUtils.random(1, 10);
+        if (tipo <= 3) { // 30% de probabilidad de mala
+            rainDropsType.add(1);
+        } else if (tipo <= 7) { // 40% de probabilidad de buena
+            rainDropsType.add(2);
+        } else { // 30% de probabilidad de god
+            rainDropsType.add(3);
+        }
+        
+        
         lastDropTime = TimeUtils.nanoTime();
     }
     public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
