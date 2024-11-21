@@ -39,9 +39,10 @@ public class PantallaJuego implements Screen {
 
         Texture gota = new Texture(Gdx.files.internal("drop.png"));
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
+        Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaFondo.wav"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, dropSound, fondoMusica, 300);
+        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -88,7 +89,8 @@ public class PantallaJuego implements Screen {
         font.draw(batch, "Gotas totales: " + pj.getPuntos(), 2, 475);
         font.draw(batch, "Vidas : " + pj.getVidas(), camera.viewportWidth * 3 / 4, 475);
         font.draw(batch, String.format("Tiempo: %02d:%02d", minutos, segundos), camera.viewportWidth / 3, 475);
-
+        
+        
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
             if (!proyectilesE.actualizarMovimiento(pj, velocidadY)) {

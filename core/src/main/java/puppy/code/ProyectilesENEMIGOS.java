@@ -12,6 +12,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import puppy.code.PJprincipal;
 
+import com.badlogic.gdx.utils.Array;
+
+import com.badlogic.gdx.graphics.Texture;
+
+import com.badlogic.gdx.graphics.Texture;
+
 public class ProyectilesENEMIGOS implements Mostrable{
 
     private Array<Rectangle> rainDropsPos;
@@ -20,14 +26,16 @@ public class ProyectilesENEMIGOS implements Mostrable{
     private int velocidadY;
     private Texture gotaBuena;
     private Texture gotaMala;
+    private Texture gotaGod;
     private Sound dropSound;
     private Music rainMusic;
 
-    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm, int velocidadY) {
+    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Texture gotaGod, Sound ss, Music mm, int velocidadY) {
         rainMusic = mm;
         dropSound = ss;
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
+        this.gotaGod = gotaGod;
         this.velocidadY = velocidadY;
     }
 
@@ -47,30 +55,21 @@ public class ProyectilesENEMIGOS implements Mostrable{
         raindrop.height = 48; //64
         rainDropsPos.add(raindrop);
         
-        
-        
-        
-        /*
-        if (MathUtils.random(1, 10) <= 3) {
+        // ver el tipo de gota    
+        int tipo = MathUtils.random(1,10);
+        if(tipo <= 3){
             rainDropsType.add(2);
-        } else {
+        }
+        if (tipo >= 3 && tipo <= 9){
             rainDropsType.add(1);
         }
-        */
-        
-        // ver el tipo de gota
-        int tipo = MathUtils.random(1, 10);
-        if (tipo <= 3) { // 30% de probabilidad de mala
-            rainDropsType.add(1);
-        } else if (tipo <= 7) { // 40% de probabilidad de buena
-            rainDropsType.add(2);
-        } else { // 30% de probabilidad de god
+        if(tipo == 10){
             rainDropsType.add(3);
         }
         
-        
         lastDropTime = TimeUtils.nanoTime();
     }
+    
     public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
@@ -78,6 +77,8 @@ public class ProyectilesENEMIGOS implements Mostrable{
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             raindrop.y -= velY * Gdx.graphics.getDeltaTime();
+            
+            int vidas = PJpri.getVidas();
                       
             if (raindrop.y + 64 < 0) {
                 rainDropsPos.removeIndex(i);
@@ -93,9 +94,17 @@ public class ProyectilesENEMIGOS implements Mostrable{
                     }                      
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
-                } else { 
+                } 
+                if(rainDropsType.get(i) == 2) { 
                     PJpri.sumarPuntos(10);
                     dropSound.play();
+                    rainDropsPos.removeIndex(i);
+                    rainDropsType.removeIndex(i);
+                }
+                
+                if(rainDropsType.get(i) == 3){
+                    vidas++;
+                    PJpri.setVidas(vidas);
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 }
@@ -103,17 +112,25 @@ public class ProyectilesENEMIGOS implements Mostrable{
         }
         return true;
     }
+    
     public void actualizarDibujoLluvia(SpriteBatch batch) {
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             if (rainDropsType.get(i) == 1) 
             {
                 batch.draw(gotaMala, raindrop.x, raindrop.y);
-            } else {
+            } 
+            
+            if (rainDropsType.get(i) == 2) {
                 batch.draw(gotaBuena, raindrop.x, raindrop.y);
+            }
+            
+            if(rainDropsType.get(i) == 3){
+                batch.draw(gotaGod, raindrop.x, raindrop.y);
             }
         }
     }
+    
     public void destruir() {
         dropSound.dispose();
         rainMusic.dispose();
