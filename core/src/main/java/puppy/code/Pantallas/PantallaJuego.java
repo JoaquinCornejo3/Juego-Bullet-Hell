@@ -43,7 +43,7 @@ public class PantallaJuego implements Screen {
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaJuego.mp3"));
-        proyectilesE = new ProyectilesENEMIGOS(gota, gotaMala, gotaGod, dropSound, fondoMusica, 300, 100);
+        proyectilesE = new ProyectilesENEMIGOS(gotaMala, gota, gotaGod, dropSound, fondoMusica, 30000);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -85,7 +85,7 @@ public class PantallaJuego implements Screen {
         batch.draw(currentFrame, 0, 0, 800, 480);
 
         if (segundos % 30 == 0 && segundos != 0) {
-            proyectilesE.setVelY(velocidadY + 5);
+            proyectilesE.setVelY(velocidadY + 500);
             font.draw(batch, "LEVEL UP!", camera.viewportWidth / 2, camera.viewportHeight / 2);
         }
         font.draw(batch, "Gotas totales: " + pj.getPuntos(), 2, 475);
@@ -95,10 +95,11 @@ public class PantallaJuego implements Screen {
         
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
-            if (minutos == 2){
+            if (minutos == 1){
                 cambio = true;
             }
-            if (!proyectilesE.actualizarMovimiento(pj, velocidadY, velocidadX, cambio)) {
+            
+            if (!proyectilesE.actualizarMovimiento(pj, cambio)) {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
