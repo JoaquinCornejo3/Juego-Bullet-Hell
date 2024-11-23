@@ -7,16 +7,28 @@ import puppy.code.Pantallas.*;
 
 public class GameBase extends Game {
     
+    private static GameBase instancia; //Aplicación de singleton
     private SpriteBatch batch;
     private BitmapFont font;
     private int higherScore;
 
+    private GameBase(){ //Aplicación de singleton
+    }
+    
+    public static GameBase getInstance() { //Aplicación de singleton
+        if (instancia == null) {
+            instancia = new GameBase();
+        }
+        return instancia;
+    }
+    
+    @Override
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         this.setScreen(new PantallaMenu(this));
     }
-
+    
     @Override
     public void render() {
         super.render();

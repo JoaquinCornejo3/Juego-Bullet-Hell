@@ -12,7 +12,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new GameBase(), getDefaultConfiguration());
+        return new Lwjgl3Application(GameBase.getInstance(), getDefaultConfiguration()); //Aplicación de Singleton.
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
