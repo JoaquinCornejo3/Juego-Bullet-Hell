@@ -30,7 +30,7 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
     @Override
     public void crear() {
         spr.setPosition(800 / 2 - spr.getWidth() / 2, 20);
-        spr.setSize(32, 32); //64, 64 Ajusta el tamaño si es necesario
+        spr.setSize(32, 32); 
     }
     
     @Override
@@ -68,15 +68,13 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
     }
 
     public void morir() {
-        // Lógica de muerte, como mostrar una pantalla de game over
     }
 
     @Override
     public void dibujar(SpriteBatch batch) {
         if (!herido) {
-            spr.draw(batch);  // Dibuja el sprite en su posición actual
+            spr.draw(batch);  
         } else {
-            // Efecto de temblor cuando está herido
             spr.setY(spr.getY() + MathUtils.random(-5, 5));
             spr.draw(batch);
             tiempoHerido--;
@@ -88,7 +86,6 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
 
     @Override
     public void actualizarMovimiento() {
-        // Movimiento basado en input del teclado
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             spr.translateX(-velX * Gdx.graphics.getDeltaTime());
         }
@@ -102,7 +99,6 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
             spr.translateY(-velY * Gdx.graphics.getDeltaTime());
         }
 
-        // Mantener el sprite dentro de los límites de la pantalla
         if (spr.getX() < 0) spr.setX(0);
         if (spr.getX() > 800 - spr.getWidth()) spr.setX(800 - spr.getWidth());
         if (spr.getY() < 0) spr.setY(0);
@@ -120,7 +116,6 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
 
     @Override
     public boolean checkCollision(EntidadMovible other) {
-        // Verifica colisión entre el área de este sprite y el otro
         return this.getArea().overlaps(other.getArea());
     }
 }

@@ -14,8 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class ProyectilesENEMIGOS implements Mostrable {
     
-    private Array<Gota> rainDrops; // Lista de gotas (abstracción con polimorfismo)
-    private Array<GotaFactory> factories; // Lista de fábricas de gotas
+    private Array<Gota> rainDrops; 
+    private Array<GotaFactory> factories; 
     private long lastDropTime;
     private int velocidadY;
     private int velocidadX;
@@ -32,7 +32,6 @@ public class ProyectilesENEMIGOS implements Mostrable {
         this.rainDrops = new Array<>();
         this.factories = new Array<>();
 
-        // Validar que las texturas no sean nulas
         if (gotaMala == null || gotaBuena == null || gotaVida == null) {
             throw new IllegalArgumentException("Las texturas de las gotas no pueden ser nulas.");
         }
@@ -71,12 +70,9 @@ public class ProyectilesENEMIGOS implements Mostrable {
 
         for (int i = 0; i < rainDrops.size; i++) {
             Gota gota = rainDrops.get(i);
-
-            // Ahora solo se utiliza la estrategia de movimiento vertical
             gota.setEstrategiaMovimiento(new MovimientoVertical(velocidadY));
             gota.mover();
 
-            // Verificar si la gota ha salido de la pantalla
             if (gota.getPosY() <= 0) {
                 rainDrops.removeIndex(i);
                 i--;
@@ -85,7 +81,7 @@ public class ProyectilesENEMIGOS implements Mostrable {
 
             // Verificar colisión con el jugador
             if (gota.checkCollision(PJpri)) {
-                gota.efecto(PJpri); // Aplica el efecto de la gota
+                gota.efecto(PJpri); 
                 dropSound.play();
                 rainDrops.removeIndex(i);
                 i--;
@@ -112,13 +108,11 @@ public class ProyectilesENEMIGOS implements Mostrable {
 
     @Override
     public Rectangle getArea() {
-        // No es necesario implementar en esta clase, ya que no tiene área propia
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void actualizarMovimiento() {
-        // No es necesario en esta clase, ya que el movimiento se maneja en Gota
     }
 
     public void pausarMusica() {

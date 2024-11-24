@@ -77,7 +77,6 @@ public class PantallaPausa implements Screen {
                 break;
             }
         }
-
         batch.begin();
 
         TextureRegion currentFrame = fondoAnimado.getKeyFrame(stateTime, true);
@@ -103,7 +102,6 @@ public class PantallaPausa implements Screen {
             }
         }
     }
-
     private void selectOption(int hoveredIndex) {
         switch (selectedIndex) {
             case 0:
