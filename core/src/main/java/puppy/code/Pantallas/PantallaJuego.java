@@ -43,7 +43,7 @@ public class PantallaJuego implements Screen {
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaJuego.mp3"));
-        proyectilesE = new ProyectilesENEMIGOS(gotaMala, gota, gotaGod, dropSound, fondoMusica, 30000);
+        proyectilesE = new ProyectilesENEMIGOS(gotaMala, gota, gotaGod, dropSound, fondoMusica, 300);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -86,7 +86,7 @@ public class PantallaJuego implements Screen {
         batch.draw(currentFrame, 0, 0, 800, 480);
 
         if (segundos % 30 == 0 && segundos != 0) {
-            proyectilesE.setVelY(velocidadY + 500);
+            proyectilesE.setVelY(velocidadY + 2);
             font.draw(batch, "LEVEL UP!", camera.viewportWidth / 2, camera.viewportHeight / 2);
         }
         font.draw(batch, "Gotas totales: " + pj.getPuntos(), 2, 475);
