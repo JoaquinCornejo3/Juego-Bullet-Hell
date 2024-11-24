@@ -59,7 +59,8 @@ public class PantallaJuego implements Screen {
         pj.crear();
         proyectilesE.crear();
     }
-
+    
+    
     @Override
     public void show() {
         proyectilesE.continuarMusica();
@@ -103,9 +104,6 @@ public class PantallaJuego implements Screen {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
-
-                
-
             }
         }
         pj.dibujar(batch);

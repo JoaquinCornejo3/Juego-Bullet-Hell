@@ -32,7 +32,18 @@ public abstract class PJprincipal extends EntidadMovible implements Mostrable {
         spr.setPosition(800 / 2 - spr.getWidth() / 2, 20);
         spr.setSize(32, 32); //64, 64 Ajusta el tamaño si es necesario
     }
-
+    
+    @Override
+    protected void accionesEspeciales() {
+        if (herido) {
+            spr.setY(spr.getY() + MathUtils.random(-5, 5));
+            tiempoHerido--;
+            if (tiempoHerido <= 0) {
+                herido = false;
+            }
+        }
+    }
+    
     public int getVidas() {
         return vidas;
     }
