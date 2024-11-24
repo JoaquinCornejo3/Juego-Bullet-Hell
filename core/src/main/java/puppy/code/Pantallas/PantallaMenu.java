@@ -25,7 +25,7 @@ public class PantallaMenu implements Screen {
     private Animation<TextureRegion> fondoAnimado;
     private float stateTime; 
 
-    private String[] menuOptions = {"Iniciar Juego", "Opciones", "Salir"};
+    private String[] menuOptions = {"Iniciar Juego", "Salir"};
     private int hoveredIndex = -1;
     private Rectangle[] menuBounds;
 
@@ -98,10 +98,7 @@ public class PantallaMenu implements Screen {
         case 0: 
             game.setScreen(new PantallaJuego(game));
             break;
-        case 1: // Opciones
-            game.setScreen(new PantallaOpciones(game)); 
-            break;
-        case 2:
+        case 1:
             Gdx.app.exit();
             break;
     }
