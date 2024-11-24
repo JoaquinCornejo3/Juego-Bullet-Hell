@@ -95,22 +95,28 @@ public class PantallaJuego implements Screen {
         
         if (!pj.estaHerido()) {
             pj.actualizarMovimiento();
-            if (minutos == 1){
+            if (minutos == 1) {
                 cambio = true;
             }
-            
+
             if (!proyectilesE.actualizarMovimiento(pj, cambio)) {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
-                game.setScreen(new PantallaGameOver(game));
-                proyectilesE.pausarMusica();
-                dispose();
+
+                
+
             }
         }
         pj.dibujar(batch);
         proyectilesE.actualizarDibujoLluvia(batch);
-
+        
+        if (pj.getVidas() == 0) {
+            game.setScreen(new PantallaGameOver(game));
+            proyectilesE.pausarMusica();
+            dispose();
+        }
+        
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
         }
