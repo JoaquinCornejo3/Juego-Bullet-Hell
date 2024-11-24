@@ -1,4 +1,3 @@
-
 package puppy.code.Controladores;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
