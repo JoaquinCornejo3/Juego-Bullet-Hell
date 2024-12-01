@@ -46,6 +46,20 @@ public class ProyectilesENEMIGOS implements Mostrable {
         for (GotaFactory factory : gotaFactories) {
             factories.add(factory);
         }
+        
+    private Texture gotaBuena;
+    private Texture gotaMala;
+    private Texture gotaGod;
+    private Sound dropSound;
+    private Music rainMusic;
+
+    public ProyectilesENEMIGOS(Texture gotaBuena, Texture gotaMala, Texture gotaGod, Sound ss, Music mm, int velocidadY) {
+        rainMusic = mm;
+        dropSound = ss;
+        this.gotaBuena = gotaBuena;
+        this.gotaMala = gotaMala;
+        this.gotaGod = gotaGod;
+        this.velocidadY = velocidadY;
     }
 
     public void crear() {
@@ -85,6 +99,42 @@ public class ProyectilesENEMIGOS implements Mostrable {
                 dropSound.play();
                 rainDrops.removeIndex(i);
                 i--;
+                
+        Rectangle raindrop = new Rectangle();
+        raindrop.x = MathUtils.random(0, 800 - 64); //0, 800 - 64
+        raindrop.y = 480;
+        raindrop.width = 48; //64
+        raindrop.height = 48; //64
+        rainDropsPos.add(raindrop);
+        
+        // ver el tipo de gota    
+        int tipo = MathUtils.random(1,10);
+        if(tipo <= 3){
+            rainDropsType.add(2);
+        }
+        if (tipo >= 3 && tipo <= 9){
+            rainDropsType.add(1);
+        }
+        if(tipo == 10){
+            rainDropsType.add(3);
+        }
+        
+        lastDropTime = TimeUtils.nanoTime();
+    }
+    
+    public boolean actualizarMovimiento(PJprincipal PJpri, int velY) {
+        if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
+            crearGotaDeLluvia();
+        }
+        for (int i = 0; i < rainDropsPos.size; i++) {
+            Rectangle raindrop = rainDropsPos.get(i);
+            raindrop.y -= velY * Gdx.graphics.getDeltaTime();
+            
+            int vidas = PJpri.getVidas();
+                      
+            if (raindrop.y + 64 < 0) {
+                rainDropsPos.removeIndex(i);
+                rainDropsType.removeIndex(i);
             }
         }
         return true;
@@ -139,3 +189,4 @@ public class ProyectilesENEMIGOS implements Mostrable {
         this.velocidadX = velocidadX;
     }
 }
+

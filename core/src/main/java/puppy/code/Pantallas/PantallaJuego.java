@@ -22,7 +22,7 @@ public class PantallaJuego implements Screen {
     private BitmapFont font;
     private PJprincipal pj;
     private ProyectilesENEMIGOS proyectilesE;
-    private boolean cambio = false;
+    private boolean cambio;
 
     private Animation<TextureRegion> fondoAnimado;
     private float stateTime; 
@@ -41,9 +41,11 @@ public class PantallaJuego implements Screen {
         Texture gota = new Texture(Gdx.files.internal("drop.png"));
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
         Texture gotaGod = new Texture(Gdx.files.internal("dropLife.png"));
+
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         Music fondoMusica = Gdx.audio.newMusic(Gdx.files.internal("musicaJuego.mp3"));
         proyectilesE = new ProyectilesENEMIGOS(gotaMala, gota, gotaGod, dropSound, fondoMusica, 300);
+        
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -74,7 +76,6 @@ public class PantallaJuego implements Screen {
         int minutos = (int) tiempo / 60;
         int segundos = (int) tiempo % 60;
         int velocidadY = proyectilesE.getVelY();
-        int velocidadX = proyectilesE.getVelX();
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
@@ -101,6 +102,7 @@ public class PantallaJuego implements Screen {
             }
 
             if (!proyectilesE.actualizarMovimiento(pj, cambio)) {
+            if (!proyectilesE.actualizarMovimiento(pj, velocidadY)) {
                 if (game.getHigherScore() < pj.getPuntos()) {
                     game.setHigherScore(pj.getPuntos());
                 }
@@ -163,3 +165,28 @@ public class PantallaJuego implements Screen {
         }
     }
 }
+
+    @Override
+    public void resize(int width, int height) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void pause() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void resume() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void hide() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
